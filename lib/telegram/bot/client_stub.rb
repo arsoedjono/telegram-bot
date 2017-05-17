@@ -7,7 +7,7 @@ module Telegram
       module StubbedConstructor
         def new(*args)
           if self == ClientStub || !ClientStub.stub_all?
-            super
+            super(args[0])
           else
             ClientStub.new(*args)
           end
@@ -35,7 +35,7 @@ module Telegram
       end
 
       def initialize(token = nil, username = nil, **options)
-        @token = token
+        @token = token || options[:token]
         @username = username || options[:username] || token
         reset
       end
