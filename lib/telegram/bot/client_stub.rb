@@ -7,7 +7,7 @@ module Telegram
       module StubbedConstructor
         def new(*args)
           if self == ClientStub || !ClientStub.stub_all?
-            super(args[0])
+            super
           else
             ClientStub.new(*args)
           end
