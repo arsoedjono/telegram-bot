@@ -2,7 +2,9 @@ RSpec.shared_context 'telegram/bot/integration' do
   let(:bot) { Telegram.bot }
   let(:from_id) { 123 }
   let(:chat_id) { 456 }
-  let(:default_message_options) { {from: {id: from_id}, chat: {id: chat_id}} }
+  let(:chat_type) { 'private' }
+  let(:chat_hash) { {id: chat_id, type: chat_type} }
+  let(:default_message_options) { {from: {id: from_id}, chat: chat_hash} }
   let(:controller_path) do
     route_name = Telegram::Bot::RoutesHelper.route_name_for_bot(bot)
     Rails.application.routes.url_helpers.public_send("#{route_name}_path")
@@ -14,7 +16,7 @@ RSpec.shared_context 'telegram/bot/integration' do
     }
   end
   let(:clear_session?) { described_class.respond_to?(:session_store) }
-  before { described_class.session_store.clear if clear_session? }
+  before { described_class.session_store.try!(:clear) if clear_session? }
 
   include Telegram::Bot::RSpec::ClientMatchers
 

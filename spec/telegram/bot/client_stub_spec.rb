@@ -46,8 +46,14 @@ RSpec.describe Telegram::Bot::ClientStub do
 
     context 'when username and token are given' do
       let(:args) { %w(token superbot) }
-      its(:token) { should eq nil }
+      its(:token) { should eq args[0] }
       its(:username) { should eq args[1] }
+    end
+
+    context 'when hash config is given' do
+      let(:args) { [token: 'token', username: 'superbot'] }
+      its(:token) { should eq args[0][:token] }
+      its(:username) { should eq args[0][:username] }
     end
   end
 end
