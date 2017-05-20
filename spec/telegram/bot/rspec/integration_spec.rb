@@ -28,7 +28,7 @@ RSpec.describe 'Integrations helper', :telegram_bot do
 
   describe '#default_message_options' do
     subject { default_message_options }
-    it { should eq from: {id: from_id}, chat: {id: chat_id} }
+    it { should eq from: {id: from_id}, chat: {id: chat_id, type: 'private'} }
   end
 
   describe '#dispatch' do
